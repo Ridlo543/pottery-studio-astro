@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 
 export const GET: APIRoute = ({ site }) => {
-  const origin = site ? site.toString().replace(/\/$/, '') : 'https://brand-studio-portfolio.vercel.app';
+  const origin = site ? site.toString().replace(/\/$/, '') : 'https://pottery-studio-astro.vercel.app';
   const body = `User-agent: *\nAllow: /\n\nSitemap: ${origin}/sitemap-index.xml\n`;
   return new Response(body, {
     headers: {
