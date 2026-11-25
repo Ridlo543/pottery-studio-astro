@@ -1,0 +1,162 @@
+media:
+  input: public/uploads/objects
+  output: /uploads/objects
+
+content:
+  - name: objects
+    label: Ceramic Objects
+    type: collection
+    path: src/content/objects
+    filename: "{primary}.md"
+    view:
+      fields: [title, category, priceLabel, order, featured]
+      primary: title
+      sort: [order, category]
+    fields:
+      - name: title
+        label: Object Name
+        type: string
+        required: true
+      - name: category
+        label: Category
+        type: select
+        options:
+          values: [Vessels, Tableware, Lighting]
+        default: Vessels
+      - name: priceEur
+        label: Price (EUR)
+        type: number
+        default: 180
+      - name: priceLabel
+        label: Display Price Label
+        type: string
+        default: "€180"
+      - name: dimensions
+        label: Dimensions
+        type: string
+      - name: clayBody
+        label: Clay Body
+        type: string
+      - name: firingTemp
+        label: Firing Temperature
+        type: string
+      - name: availability
+        label: Availability
+        type: string
+      - name: careNotes
+        label: Care Notes
+        type: text
+      - name: summary
+        label: Short Description
+        type: text
+        required: true
+      - name: coverImage
+        label: Primary Product Image
+        type: image
+      - name: coverAlt
+        label: Primary Image Alt Text
+        type: string
+      - name: hoverImage
+        label: Secondary Hover Image
+        type: image
+      - name: hoverAlt
+        label: Secondary Image Alt Text
+        type: string
+      - name: glazes
+        label: Available Glazes
+        type: object
+        list: true
+        fields:
+          - name: name
+            label: Glaze Name
+            type: string
+          - name: hex
+            label: Swatch Hex
+            type: string
+          - name: finish
+            label: Surface Finish
+            type: string
+      - name: gallery
+        label: Product Gallery
+        type: object
+        list: true
+        fields:
+          - name: image
+            label: Image
+            type: image
+          - name: alt
+            label: Alt Text
+            type: string
+      - name: order
+        label: Catalog Order
+        type: number
+        default: 1
+      - name: featured
+        label: Featured on Home
+        type: boolean
+        default: true
+      - name: gridSpan
+        label: Catalog Grid Span
+        type: select
+        options:
+          values: [wide, compact, full]
+        default: wide
+      - name: body
+        label: Object Notes & Provenance
+        type: rich-text
+
+  - name: studio
+    label: Studio Profile
+    type: file
+    path: src/content/studio/profile.json
+    fields:
+      - name: brandName
+        label: Brand Name
+        type: string
+        required: true
+      - name: headline
+        label: Hero Headline
+        type: text
+        required: true
+      - name: subline
+        label: Studio Subline
+        type: text
+        required: true
+      - name: kilnBatch
+        label: Current Kiln Batch Status
+        type: string
+      - name: location
+        label: Workshop Location
+        type: string
+      - name: hours
+        label: Studio Visit Hours
+        type: string
+      - name: email
+        label: Studio Email
+        type: string
+        required: true
+      - name: disclosure
+        label: Showcase Disclosure
+        type: text
+        required: true
+      - name: craftStages
+        label: Kiln & Craft Stages
+        type: object
+        list: true
+        fields:
+          - name: step
+            label: Step Number
+            type: string
+          - name: title
+            label: Stage Title
+            type: string
+          - name: temperatureOrDuration
+            label: Duration / Temp
+            type: string
+          - name: description
+            label: Description
+            type: text
+          - name: details
+            label: Technical Details
+            type: string
+            list: true

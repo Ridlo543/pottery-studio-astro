@@ -1,0 +1,115 @@
+---
+import { getEntry } from 'astro:content';
+import { Picture } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import workspaceImg from '../assets/studio/workspace.webp';
+import shelvesImg from '../assets/studio/shelves.webp';
+
+const studioEntry = await getEntry('studio', 'profile');
+const studio = studioEntry?.data ?? {
+  brandName: 'Silt & Kiln',
+  headline: 'Wheel-thrown stoneware for dining rooms and architectural interiors.',
+  subline: 'Small-batch vessels, tableware, and ceramic lighting thrown and reduction-fired at 1,260°C in Melle.',
+  kilnBatch: 'Kiln Opening No. 14 · Live',
+  location: 'Melle, Germany · CET',
+  hours: 'Studio visits by appointment · Thu–Sat 11:00–17:00',
+  email: 'studio@siltandkiln.com',
+  disclosure: 'Self-initiated ceramic brand & product showcase.',
+  craftStages: [],
+};
+---
+
+<BaseLayout
+  title={`Studio · ${studio.brandName}`}
+  description={`Workshop hours, studio story, and catalog management for ${studio.brandName}.`}
+>
+  <section class="pt-10 pb-16 md:pt-14 md:pb-24">
+    <div class="studio-wrap">
+      <p class="font-mono text-[0.75rem] uppercase tracking-[0.06em] text-[var(--color-muted)]">
+        Studio · {studio.location}
+      </p>
+      <h1
+        data-motion="hero"
+        class="mt-4 max-w-[20ch] text-[clamp(2.25rem,4.5vw,3.75rem)] font-normal leading-[1.06] tracking-[-0.035em] text-[var(--color-ink)]"
+      >
+        A working stoneware workshop in Melle.
+      </h1>
+
+      <div class="mt-10 grid grid-cols-1 gap-10 border-t border-[var(--color-border)] pt-10 md:grid-cols-12">
+        <div class="flex flex-col gap-5 md:col-span-6">
+          <p class="text-[1.125rem] leading-[1.6] text-[var(--color-ink)]">
+            {studio.subline}
+          </p>
+          <p class="text-[1rem] leading-[1.7] text-[var(--color-muted)]">
+            Our workshop houses two momentum wheels, a 400-liter gas reduction kiln, and a glaze library built from washed beechwood ash, local feldspar, and iron oxides.
+          </p>
+          <p class="font-mono text-[0.875rem] text-[var(--color-ink)]">
+            {studio.hours}
+          </p>
+          <p class="text-[0.875rem] text-[var(--color-muted)]">
+            {studio.disclosure}
+          </p>
+          <div class="flex flex-wrap gap-3 pt-2">
+            <a
+              href="/commissions"
+              class="inline-flex min-h-[44px] items-center rounded-[2px] bg-[var(--color-accent)] px-6 text-[0.9375rem] font-medium text-[var(--color-accent-on)] hover:bg-[var(--color-accent-hover)]"
+            >
+              Book a studio visit
+            </a>
+            <a
+              href="/"
+              class="inline-flex min-h-[44px] items-center rounded-[2px] border border-[var(--color-border)] px-5 text-[0.9375rem] font-medium text-[var(--color-ink)] hover:border-[var(--color-ink)]"
+            >
+              Browse objects
+            </a>
+          </div>
+        </div>
+
+        <div class="overflow-hidden bg-[var(--color-surface)] md:col-span-6">
+          <Picture
+            src={workspaceImg}
+            formats={['avif', 'webp']}
+            fallbackFormat="webp"
+            widths={[480, 760]}
+            sizes="(max-width: 1023px) 100vw, 45vw"
+            alt="Architectural concrete and timber pottery studio interior with natural daylight"
+            class="aspect-[4/3] w-full object-cover"
+            loading="eager"
+            decoding="sync"
+            fetchpriority="high"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="cms-heading" class="border-t border-[var(--color-border)] bg-[var(--color-surface)] py-16 md:py-24">
+    <div class="studio-wrap grid grid-cols-1 items-center gap-10 md:grid-cols-12">
+      <div class="overflow-hidden bg-[var(--color-canvas)] md:col-span-5">
+        <Picture
+          src={shelvesImg}
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
+          widths={[480, 760]}
+          sizes="(max-width: 1023px) 100vw, 38vw"
+          alt="Pottery studio drying shelves filled with bisque-fired ceramic vessels"
+          class="aspect-[4/3] w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+      <div class="flex flex-col gap-5 md:col-span-7">
+        <p class="font-mono text-[0.75rem] uppercase tracking-[0.06em] text-[var(--color-muted)]">
+          Catalog Management
+        </p>
+        <h2 id="cms-heading" class="text-[2rem] font-medium leading-[1.15] tracking-[-0.025em] text-[var(--color-ink)]">
+          Update kiln batches, glazes, and pricing without touching code.
+        </h2>
+        <p class="max-w-[56ch] text-[1rem] leading-[1.7] text-[var(--color-muted)]">
+          Every ceramic object, glaze swatch, dimension spec, and gallery photograph is managed through Keystatic locally or Pages CMS on GitHub, compiling directly to static HTML.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

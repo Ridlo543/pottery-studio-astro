@@ -1,0 +1,80 @@
+---
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { getPublicImageDimensions } from '../lib/media';
+
+interface Props {
+  src?: string;
+  alt: string;
+  class?: string;
+  eager?: boolean;
+  sizes?: string;
+  widths?: number[];
+  fallbackWidth?: number;
+  fallbackHeight?: number;
+}
+
+const {
+  src,
+  alt,
+  class: className = '',
+  eager = false,
+  sizes = '(max-width: 767px) 100vw, 50vw',
+  widths = [480, 760, 1120],
+  fallbackWidth = 1400,
+  fallbackHeight = 1050,
+} = Astro.props;
+
+const assetModules = import.meta.glob<{ default: ImageMetadata }>(
+  '/src/assets/objects/**/*.{webp,jpg,jpeg,png,avif}',
+  { eager: true }
+);
+
+const assetKey = src?.startsWith('/uploads/objects/')
+  ? `/src/assets/objects/${src.slice('/uploads/objects/'.length)}`
+  : undefined;
+
+const optimizedAsset = assetKey ? assetModules[assetKey]?.default : undefined;
+
+const dims = optimizedAsset
+  ? { width: optimizedAsset.width, height: optimizedAsset.height }
+  : await getPublicImageDimensions(src, {
+      width: fallbackWidth,
+      height: fallbackHeight,
+    });
+---
+
+{optimizedAsset ? (
+  <Picture
+    src={optimizedAsset}
+    formats={['avif', 'webp']}
+    fallbackFormat="webp"
+    widths={widths}
+    sizes={sizes}
+    alt={alt}
+    loading={eager ? 'eager' : 'lazy'}
+    decoding={eager ? 'sync' : 'async'}
+    fetchpriority={eager ? 'high' : 'auto'}
+    class={className}
+  />
+) : src ? (
+  <img
+    src={src}
+    alt={alt}
+    width={dims.width}
+    height={dims.height}
+    sizes={sizes}
+    loading={eager ? 'eager' : 'lazy'}
+    decoding={eager ? 'sync' : 'async'}
+    fetchpriority={eager ? 'high' : 'auto'}
+    class={className}
+  />
+) : (
+  <div
+    class={`flex items-center justify-center bg-[var(--color-surface)] text-[var(--color-muted)] text-sm ${className}`}
+    role="img"
+    aria-label={alt}
+  >
+    <span>Visual asset pending upload</span>
+  </div>
+)}

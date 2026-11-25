@@ -1,0 +1,56 @@
+{
+  "brandName": "Silt & Kiln",
+  "headline": "Wheel-thrown stoneware for dining rooms and architectural interiors.",
+  "subline": "Small-batch vessels, tableware, and ceramic lighting thrown and reduction-fired at 1,260°C in Melle.",
+  "kilnBatch": "Kiln Opening No. 14 · Live",
+  "location": "Melle, Germany · CET",
+  "hours": "Studio visits by appointment · Thu–Sat 11:00–17:00",
+  "email": "studio@siltandkiln.com",
+  "disclosure": "Self-initiated ceramic brand & product showcase.",
+  "craftStages": [
+    {
+      "step": "01",
+      "title": "Raw Clay & Wedging",
+      "temperatureOrDuration": "48h conditioning",
+      "description": "Westerwald buff stoneware and iron-flecked grog clays are blended, spiral-wedged by hand to remove air pockets, and rested under damp linen before throwing.",
+      "details": [
+        "12% fine chamotte grog for structural stability",
+        "Zero synthetic plasticizers or commercial stains",
+        "Reclaimed trimmings slaked and recycled in-house"
+      ]
+    },
+    {
+      "step": "02",
+      "title": "Wheel Throwing & Trimming",
+      "temperatureOrDuration": "3–5 days leather-hard",
+      "description": "Each vessel and plate is thrown on a momentum wheel, dried slowly on raw pine boards, and turned at leather-hard stage to carve crisp architectural foot rings.",
+      "details": [
+        "Hand-turned unglazed foot rings stamped with batch mark",
+        "Calibrated wall thickness for thermal retention",
+        "Slow ambient drying to prevent rim warping"
+      ]
+    },
+    {
+      "step": "03",
+      "title": "Bisque & Mineral Glazing",
+      "temperatureOrDuration": "980°C bisque",
+      "description": "Bisque-fired ware is dipped or poured with studio-formulated wood-ash, feldspar, and iron-oxide glazes mixed from raw mineral powders.",
+      "details": [
+        "Beechwood ash washed and sieved through 80-mesh",
+        "Lead-free, food-safe vitrified interior surfaces",
+        "Raw exterior clay left exposed on select vessels"
+      ]
+    },
+    {
+      "step": "04",
+      "title": "Reduction Firing",
+      "temperatureOrDuration": "1,260°C · 14h cycle",
+      "description": "Gas reduction firing draws oxygen from iron particles inside the clay body, producing warm toasted speckles and subtle tonal variation across every kiln shelf.",
+      "details": [
+        "Cone 9–10 vitrification for zero water absorption",
+        "36-hour natural kiln cooling before unloading",
+        "Numbered batch archive recorded per firing"
+      ]
+    }
+  ]
+}

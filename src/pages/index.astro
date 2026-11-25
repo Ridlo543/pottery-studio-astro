@@ -1,0 +1,458 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import { Picture } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CaseImage from '../components/CaseImage.astro';
+import rawVesselsImg from '../assets/studio/raw-vessels.webp';
+import wheelImg from '../assets/studio/wheel.webp';
+import workspaceImg from '../assets/studio/workspace.webp';
+
+const studioEntry = await getEntry('studio', 'profile');
+const studio = studioEntry?.data ?? {
+  brandName: 'Silt & Kiln',
+  headline: 'Wheel-thrown stoneware for dining rooms and architectural interiors.',
+  subline: 'Small-batch vessels, tableware, and ceramic lighting thrown and reduction-fired at 1,260°C in Melle.',
+  kilnBatch: 'Kiln Opening No. 14 · Live',
+  location: 'Melle, Germany · CET',
+  hours: 'Studio visits by appointment · Thu–Sat 11:00–17:00',
+  email: 'studio@siltandkiln.com',
+  disclosure: 'Self-initiated ceramic brand & product showcase.',
+  craftStages: [],
+};
+
+const allObjects = await getCollection('objects', ({ data }) => data.featured);
+const objects = allObjects.sort((a, b) => a.data.order - b.data.order);
+
+const categories = ['All', 'Vessels', 'Tableware', 'Lighting'];
+
+const spanClassMap: Record<'wide' | 'compact' | 'full', string> = {
+  wide: 'md:col-span-7',
+  compact: 'md:col-span-5',
+  full: 'md:col-span-12',
+};
+
+const aspectClassMap: Record<'wide' | 'compact' | 'full', string> = {
+  wide: 'aspect-[4/3] md:aspect-[16/11]',
+  compact: 'aspect-[4/3] md:aspect-[5/4]',
+  full: 'aspect-[4/3] md:aspect-[21/9]',
+};
+
+const processFrames = [
+  { src: '/uploads/objects/kiln-table-lamp/wheel.webp', alt: 'Overhead spinning pottery wheel with clay trimming tools', label: '01 · Momentum Wheel' },
+  { src: '/uploads/objects/kiln-table-lamp/carving.webp', alt: 'Potter hands carving wet clay vessel on banding wheel', label: '02 · Hand Carving' },
+  { src: '/uploads/objects/linen-dinner-plates/footring.webp', alt: 'Inverted stoneware plates showing trimmed raw clay foot rings', label: '03 · Trimmed Foot Rings' },
+  { src: '/uploads/objects/twin-amphora-vessels/raw.webp', alt: 'Unfired stoneware vessels drying before bisque firing', label: '04 · Greenware Drying' },
+  { src: '/uploads/objects/kiln-table-lamp/shelves.webp', alt: 'Pottery studio drying shelves with bisque-fired vessels', label: '05 · Bisque Shelves' },
+  { src: '/uploads/objects/speckled-espresso-set/shelf.webp', alt: 'Glazed stoneware mugs arranged on wooden studio display shelf', label: '06 · Glaze Archive' },
+  { src: '/uploads/objects/cylindrical-pour-jars/jug.webp', alt: 'Dark reduction-fired stoneware jug on draped linen', label: '07 · Reduction Firing' },
+  { src: '/uploads/objects/twin-amphora-vessels/fluted.webp', alt: 'Fluted cream ceramic vase holding dried botanical stems', label: '08 · Finished Vessel' },
+];
+---
+
+<BaseLayout
+  title={`${studio.brandName} · Architectural Stoneware & Ceramic Studio`}
+  description={studio.subline}
+>
+  <!-- Editorial Hero Showcase -->
+  <section class="pt-10 pb-14 md:pt-12 md:pb-20">
+    <div class="studio-wrap">
+      <div class="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <h1
+          data-motion="hero"
+          class="max-w-[20ch] text-[clamp(2.25rem,4.6vw,4rem)] font-normal leading-[1.04] tracking-[-0.035em] text-[var(--color-ink)]"
+        >
+          {studio.headline}
+        </h1>
+
+        <div data-motion="hero" class="flex shrink-0 flex-wrap items-center gap-3 pb-1 sm:flex-nowrap">
+          <a
+            href="#objects"
+            class="inline-flex min-h-[44px] items-center justify-center whitespace-nowrap rounded-[2px] bg-[var(--color-accent)] px-5 text-[0.9375rem] font-medium text-[var(--color-accent-on)] hover:bg-[var(--color-accent-hover)]"
+          >
+            Browse objects
+          </a>
+          <a
+            href="/commissions"
+            class="inline-flex min-h-[44px] items-center justify-center whitespace-nowrap rounded-[2px] border border-[var(--color-border)] px-5 text-[0.9375rem] font-medium text-[var(--color-ink)] hover:border-[var(--color-ink)]"
+          >
+            Trade commissions
+          </a>
+        </div>
+      </div>
+
+      <a
+        href="/craft"
+        class="group mt-8 block border border-[var(--color-border)] bg-[var(--color-surface)] md:mt-10"
+      >
+        <div class="overflow-hidden">
+          <Picture
+            src={rawVesselsImg}
+            formats={['avif', 'webp']}
+            fallbackFormat="webp"
+            widths={[480, 760, 1120]}
+            sizes="(max-width: 1023px) 100vw, 80vw"
+            alt="Unfired stoneware vessels drying on a studio table before bisque firing"
+            class="aspect-[16/9] w-full object-cover transition-transform duration-700 group-hover:scale-[1.015] md:aspect-[21/9]"
+            loading="eager"
+            decoding="sync"
+            fetchpriority="high"
+          />
+        </div>
+        <div class="flex flex-col justify-between gap-2 border-t border-[var(--color-border)] bg-[var(--color-canvas)] px-5 py-4 sm:flex-row sm:items-center">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="font-mono text-[0.75rem] uppercase tracking-[0.05em] text-[var(--color-accent)]">
+              {studio.kilnBatch}
+            </span>
+            <span class="text-[1rem] font-medium text-[var(--color-ink)]">
+              Westerwald Stoneware &amp; Wood-Ash Glazes
+            </span>
+            <span class="text-[0.875rem] text-[var(--color-muted)]">
+              Fired to 1,260°C in gas reduction
+            </span>
+          </div>
+          <span class="font-mono text-[0.75rem] text-[var(--color-ink)] group-hover:text-[var(--color-accent)]">
+            Explore kiln &amp; craft &rarr;
+          </span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Asymmetric 6-Object Ceramic Catalog -->
+  <section id="objects" aria-labelledby="objects-heading" class="border-t border-[var(--color-border)] py-16 md:py-24">
+    <div class="studio-wrap">
+      <div class="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-center">
+        <div>
+          <p class="font-mono text-[0.75rem] uppercase tracking-[0.06em] text-[var(--color-muted)]">
+            Kiln Opening No. 14
+          </p>
+          <h2 id="objects-heading" class="mt-1 text-[1.75rem] font-medium tracking-[-0.025em] text-[var(--color-ink)] md:text-[2.25rem]">
+            Ceramic Objects ({objects.length})
+          </h2>
+        </div>
+
+        <div role="group" aria-label="Filter ceramic objects by category" class="flex flex-wrap items-center gap-2">
+          {categories.map((cat, idx) => (
+            <button
+              type="button"
+              data-filter-btn={cat}
+              aria-pressed={idx === 0 ? 'true' : 'false'}
+              class={`min-h-[44px] rounded-[2px] px-3.5 text-[0.875rem] font-medium ${
+                idx === 0
+                  ? 'bg-[var(--color-ink)] text-[var(--color-canvas)]'
+                  : 'border border-[var(--color-border)] text-[var(--color-ink)] hover:border-[var(--color-ink)]'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div id="objects-grid" class="grid grid-cols-1 gap-x-6 gap-y-12 md:grid-cols-12 md:gap-y-16">
+        {objects.map((item) => {
+          const spanClass = spanClassMap[item.data.gridSpan] ?? 'md:col-span-6';
+          const aspectClass = aspectClassMap[item.data.gridSpan] ?? 'aspect-[4/3]';
+
+          return (
+            <article
+              data-object-card
+              data-category={item.data.category}
+              class={`object-card group ${spanClass}`}
+            >
+              <a href={`/objects/${item.id}`} class="block focus-visible:outline-offset-4">
+                <div class="object-card-media relative overflow-hidden bg-[var(--color-surface)]">
+                  <CaseImage
+                    src={item.data.coverImage}
+                    alt={item.data.coverAlt || item.data.title}
+                    eager={false}
+                    sizes={
+                      item.data.gridSpan === 'full'
+                        ? '(max-width: 1023px) 100vw, 80vw'
+                        : item.data.gridSpan === 'wide'
+                          ? '(max-width: 1023px) 100vw, 48vw'
+                          : '(max-width: 1023px) 100vw, 34vw'
+                    }
+                    class={`object-card-primary w-full object-cover ${aspectClass}`}
+                  />
+                  {item.data.hoverImage && (
+                    <CaseImage
+                      src={item.data.hoverImage}
+                      alt={item.data.hoverAlt || `${item.data.title} alternate view`}
+                      sizes={
+                        item.data.gridSpan === 'wide'
+                          ? '(max-width: 1023px) 100vw, 48vw'
+                          : '(max-width: 1023px) 100vw, 34vw'
+                      }
+                      class={`object-card-hover absolute inset-0 h-full w-full object-cover ${aspectClass}`}
+                    />
+                  )}
+                </div>
+
+                <div class="mt-3.5 flex items-start justify-between gap-4">
+                  <div>
+                    <h3 class="text-[1.25rem] font-medium leading-[1.25] tracking-[-0.02em] text-[var(--color-ink)] group-hover:text-[var(--color-accent)] md:text-[1.375rem]">
+                      {item.data.title}
+                    </h3>
+                    <p class="mt-1 text-[0.875rem] leading-relaxed text-[var(--color-muted)]">
+                      {item.data.category} · {item.data.dimensions} · {item.data.firingTemp}
+                    </p>
+                  </div>
+                  <span class="shrink-0 pt-1 font-mono text-[0.875rem] font-medium text-[var(--color-ink)]">
+                    {item.data.priceLabel}
+                  </span>
+                </div>
+              </a>
+            </article>
+          );
+        })}
+      </div>
+
+      <div
+        id="objects-empty-state"
+        hidden
+        class="mt-8 border border-[var(--color-border)] bg-[var(--color-surface)] p-8 text-center"
+      >
+        <p class="text-[1rem] text-[var(--color-ink)]">No ceramic objects match that category.</p>
+        <button
+          type="button"
+          id="objects-reset-filter"
+          class="mt-4 inline-flex min-h-[44px] items-center rounded-[2px] bg-[var(--color-ink)] px-5 text-[0.875rem] font-medium text-[var(--color-canvas)]"
+        >
+          Show all objects
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive 4-Stage Kiln & Craft Process -->
+  <section id="craft" aria-labelledby="craft-heading" class="border-t border-[var(--color-border)] bg-[var(--color-surface)] py-16 md:py-24">
+    <div class="studio-wrap">
+      <div class="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+        <div>
+          <p class="font-mono text-[0.75rem] uppercase tracking-[0.06em] text-[var(--color-muted)]">
+            Clay &amp; Firing Process
+          </p>
+          <h2 id="craft-heading" class="mt-1 text-[1.75rem] font-medium tracking-[-0.025em] text-[var(--color-ink)] md:text-[2.25rem]">
+            From Raw Clay to 1,260°C Reduction
+          </h2>
+        </div>
+        <a
+          href="/craft"
+          class="inline-flex min-h-[44px] items-center font-mono text-[0.8125rem] text-[var(--color-accent)] underline underline-offset-4"
+        >
+          Full kiln &amp; glaze notes &rarr;
+        </a>
+      </div>
+
+      <div class="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-start">
+        <div class="overflow-hidden bg-[var(--color-canvas)] md:col-span-4">
+          <Picture
+            src={wheelImg}
+            formats={['avif', 'webp']}
+            fallbackFormat="webp"
+            widths={[480, 760]}
+            sizes="(max-width: 1023px) 100vw, 30vw"
+            alt="Overhead spinning pottery wheel surrounded by clay trimming tools"
+            class="aspect-[4/3] w-full object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="border-t border-[var(--color-border)] md:col-span-8">
+        {studio.craftStages.map((stage, idx) => {
+          const panelId = `craft-panel-${idx}`;
+          const isFirst = idx === 0;
+          return (
+            <div class="border-b border-[var(--color-border)]">
+              <button
+                type="button"
+                data-craft-toggle={panelId}
+                aria-expanded={isFirst ? 'true' : 'false'}
+                aria-controls={panelId}
+                class="flex min-h-[64px] w-full items-center justify-between gap-4 py-5 text-left hover:text-[var(--color-accent)]"
+              >
+                <span class="flex items-baseline gap-4 md:gap-8">
+                  <span class="font-mono text-[0.8125rem] text-[var(--color-muted)]">{stage.step}</span>
+                  <span class="text-[1.25rem] font-medium tracking-[-0.02em] text-[var(--color-ink)] md:text-[1.5rem]">
+                    {stage.title}
+                  </span>
+                </span>
+                <span class="flex items-center gap-4">
+                  <span class="hidden font-mono text-[0.8125rem] text-[var(--color-muted)] sm:inline">
+                    {stage.temperatureOrDuration}
+                  </span>
+                  <span data-craft-icon class="font-mono text-[1.125rem] text-[var(--color-ink)]">
+                    {isFirst ? '−' : '+'}
+                  </span>
+                </span>
+              </button>
+
+              <div id={panelId} hidden={!isFirst} class="pb-8 pl-0 md:pl-14">
+                <div class="grid grid-cols-1 gap-6 md:grid-cols-12">
+                  <p class="text-[1rem] leading-[1.65] text-[var(--color-muted)] md:col-span-6">
+                    {stage.description}
+                  </p>
+                  <ul class="grid grid-cols-1 gap-2 text-[0.9375rem] text-[var(--color-ink)] md:col-span-6">
+                    {stage.details.map((item) => (
+                      <li class="border-l-2 border-[var(--color-accent)] pl-3">{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Studio & Kiln Contact Sheet -->
+  <section aria-labelledby="archive-heading" class="border-t border-[var(--color-border)] py-16 md:py-20">
+    <div class="studio-wrap">
+      <div class="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <p class="font-mono text-[0.75rem] uppercase tracking-[0.06em] text-[var(--color-muted)]">
+            Workshop Contact Sheet
+          </p>
+          <h2 id="archive-heading" class="mt-1 text-[1.5rem] font-medium tracking-[-0.02em] text-[var(--color-ink)]">
+            Inside the Melle Pottery Studio
+          </h2>
+        </div>
+        <a
+          href="/craft"
+          class="inline-flex min-h-[44px] items-center font-mono text-[0.8125rem] text-[var(--color-accent)] underline underline-offset-4"
+        >
+          View studio process &rarr;
+        </a>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-5">
+        {processFrames.map((frame) => (
+          <div class="overflow-hidden bg-[var(--color-surface)]">
+            <CaseImage
+              src={frame.src}
+              alt={frame.alt}
+              eager={false}
+              widths={[360, 640]}
+              sizes="(max-width: 767px) 46vw, 22vw"
+              class="aspect-[4/3] w-full object-cover"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Studio Visit & Trade Commissions Band -->
+  <section aria-labelledby="studio-band-heading" class="border-t border-[var(--color-border)] py-16 md:py-24">
+    <div class="studio-wrap grid grid-cols-1 items-center gap-10 md:grid-cols-12 md:gap-12">
+      <div class="flex flex-col gap-5 md:col-span-6">
+        <p class="font-mono text-[0.75rem] uppercase tracking-[0.06em] text-[var(--color-muted)]">
+          Workshop &amp; Trade
+        </p>
+        <h2
+          id="studio-band-heading"
+          class="text-[clamp(1.75rem,3vw,2.5rem)] font-normal leading-[1.12] tracking-[-0.03em] text-[var(--color-ink)]"
+        >
+          Small-batch tableware for restaurants, cafés, and architectural spaces.
+        </h2>
+        <p class="max-w-[50ch] text-[1rem] leading-[1.65] text-[var(--color-muted)]">
+          We partner with chefs, interior architects, and hospitality teams on custom glaze runs, numbered vessel editions, and studio visits in Melle.
+        </p>
+        <div class="flex flex-wrap items-center gap-3 pt-2">
+          <a
+            href="/studio"
+            class="inline-flex min-h-[44px] items-center rounded-[2px] bg-[var(--color-accent)] px-5 text-[0.9375rem] font-medium text-[var(--color-accent-on)] hover:bg-[var(--color-accent-hover)]"
+          >
+            Visit the studio
+          </a>
+          <a
+            href="/commissions"
+            class="inline-flex min-h-[44px] items-center rounded-[2px] border border-[var(--color-border)] px-5 text-[0.9375rem] font-medium text-[var(--color-ink)] hover:border-[var(--color-ink)]"
+          >
+            Trade commissions
+          </a>
+        </div>
+      </div>
+
+      <div class="overflow-hidden bg-[var(--color-surface)] md:col-span-6">
+        <Picture
+          src={workspaceImg}
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
+          widths={[480, 760]}
+          sizes="(max-width: 1023px) 100vw, 45vw"
+          alt="Architectural concrete and timber pottery studio interior with natural daylight"
+          class="aspect-[4/3] w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  function setupHomeCatalog() {
+    // 1. Category filter
+    const grid = document.getElementById('objects-grid');
+    const emptyState = document.getElementById('objects-empty-state');
+    const resetBtn = document.getElementById('objects-reset-filter');
+    const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-filter-btn]'));
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-object-card]'));
+
+    if (grid && buttons.length > 0 && grid.dataset.bound !== 'true') {
+      grid.dataset.bound = 'true';
+
+      const applyFilter = (selected: string) => {
+        let visibleCount = 0;
+        for (const card of cards) {
+          const match = selected === 'All' || card.dataset.category === selected;
+          card.hidden = !match;
+          if (match) visibleCount += 1;
+        }
+
+        if (emptyState) emptyState.hidden = visibleCount > 0;
+
+        for (const btn of buttons) {
+          const active = btn.dataset.filterBtn === selected;
+          btn.setAttribute('aria-pressed', String(active));
+          if (active) {
+            btn.classList.add('bg-[var(--color-ink)]', 'text-[var(--color-canvas)]');
+            btn.classList.remove('border', 'border-[var(--color-border)]', 'text-[var(--color-ink)]', 'hover:border-[var(--color-ink)]');
+          } else {
+            btn.classList.remove('bg-[var(--color-ink)]', 'text-[var(--color-canvas)]');
+            btn.classList.add('border', 'border-[var(--color-border)]', 'text-[var(--color-ink)]', 'hover:border-[var(--color-ink)]');
+          }
+        }
+      };
+
+      for (const btn of buttons) {
+        btn.addEventListener('click', () => applyFilter(btn.dataset.filterBtn || 'All'));
+      }
+      resetBtn?.addEventListener('click', () => applyFilter('All'));
+    }
+
+    // 2. Craft stages accordion
+    const craftToggles = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-craft-toggle]'));
+    for (const btn of craftToggles) {
+      if (btn.dataset.bound === 'true') continue;
+      btn.dataset.bound = 'true';
+      btn.addEventListener('click', () => {
+        const targetId = btn.dataset.craftToggle || '';
+        const panel = document.getElementById(targetId);
+        const icon = btn.querySelector('[data-craft-icon]');
+        if (!panel) return;
+        const nextOpen = btn.getAttribute('aria-expanded') !== 'true';
+        btn.setAttribute('aria-expanded', String(nextOpen));
+        panel.hidden = !nextOpen;
+        if (icon) icon.textContent = nextOpen ? '−' : '+';
+      });
+    }
+
+  }
+
+  document.addEventListener('astro:page-load', setupHomeCatalog);
+</script>

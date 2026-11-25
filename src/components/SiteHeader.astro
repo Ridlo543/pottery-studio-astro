@@ -1,0 +1,437 @@
+---
+import BrandMark from './BrandMark.astro';
+
+interface Props {
+  brandName: string;
+  subline: string;
+  kilnBatch: string;
+  location: string;
+  email: string;
+  currentPath: string;
+}
+
+const {
+  brandName,
+  subline,
+  kilnBatch,
+  location,
+  email,
+  currentPath,
+} = Astro.props;
+
+const navLinks = [
+  { label: 'Objects', href: '/', match: (p: string) => p === '/' || p.startsWith('/objects') },
+  { label: 'Kiln & Craft', href: '/craft', match: (p: string) => p.startsWith('/craft') },
+  { label: 'Studio', href: '/studio', match: (p: string) => p.startsWith('/studio') },
+  { label: 'Commissions', href: '/commissions', match: (p: string) => p.startsWith('/commissions') },
+];
+---
+
+<!-- Desktop Fixed Left Studio Rail -->
+<aside
+  aria-label="Silt & Kiln navigation and studio status"
+  class="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:flex lg:w-[280px] lg:flex-col lg:justify-between lg:border-r lg:border-[var(--color-border)] lg:bg-[var(--color-canvas)] lg:px-8 lg:py-9"
+>
+  <div class="flex flex-col gap-7">
+    <a
+      href="/"
+      class="inline-flex min-h-[44px] items-center gap-3 text-[1.0625rem] font-semibold uppercase tracking-[0.05em] text-[var(--color-ink)] no-underline"
+    >
+      <BrandMark size={22} />
+      <span>{brandName}</span>
+    </a>
+
+    <p class="text-[0.875rem] leading-[1.55] text-[var(--color-muted)]">
+      {subline}
+    </p>
+
+    <nav aria-label="Primary navigation" class="flex flex-col border-t border-[var(--color-border)] pt-5">
+      {navLinks.map((item) => {
+        const active = item.match(currentPath);
+        return (
+          <a
+            href={item.href}
+            aria-current={active ? 'page' : undefined}
+            class={`flex min-h-[44px] items-center justify-between text-[0.9375rem] font-medium ${
+              active
+                ? 'text-[var(--color-accent)]'
+                : 'text-[var(--color-ink)] hover:text-[var(--color-accent)]'
+            }`}
+          >
+            <span>{item.label}</span>
+            {active && <span class="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" aria-hidden="true" />}
+          </a>
+        );
+      })}
+    </nav>
+  </div>
+
+  <div class="flex flex-col gap-4 border-t border-[var(--color-border)] pt-6">
+    <div class="flex flex-col gap-1.5">
+      <div class="flex items-center gap-2 font-mono text-[0.75rem] text-[var(--color-ink)]">
+        <span class="h-2 w-2 rounded-full bg-[var(--color-accent)]" aria-hidden="true"></span>
+        <span>{kilnBatch}</span>
+      </div>
+      <p class="font-mono text-[0.75rem] text-[var(--color-muted)]">
+        {location} · <span data-studio-clock>18:00</span>
+      </p>
+    </div>
+
+    <a
+      href={`mailto:${email}`}
+      class="inline-flex min-h-[44px] items-center text-[0.875rem] font-medium text-[var(--color-ink)] underline decoration-[var(--color-border)] underline-offset-4 hover:text-[var(--color-accent)] hover:decoration-[var(--color-accent)]"
+    >
+      {email}
+    </a>
+
+    <div class="grid grid-cols-2 gap-2">
+      <button
+        type="button"
+        data-bag-open
+        aria-controls="inquiry-bag-drawer"
+        aria-expanded="false"
+        class="inline-flex min-h-[44px] items-center justify-center rounded-[2px] border border-[var(--color-border)] px-3 font-mono text-[0.75rem] text-[var(--color-ink)] hover:border-[var(--color-ink)]"
+      >
+        Bag (<span data-bag-count>0</span>)
+      </button>
+
+      <button
+        type="button"
+        data-theme-toggle
+        aria-pressed="false"
+        class="inline-flex min-h-[44px] items-center justify-center rounded-[2px] border border-[var(--color-border)] px-3 font-mono text-[0.75rem] text-[var(--color-ink)] hover:border-[var(--color-ink)]"
+      >
+        <span data-theme-label>Light</span>
+      </button>
+    </div>
+  </div>
+</aside>
+
+<!-- Mobile & Tablet Sticky Top Header -->
+<header class="sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-canvas)] lg:hidden">
+  <div class="studio-wrap flex h-[60px] items-center justify-between gap-3">
+    <a
+      href="/"
+      class="inline-flex min-h-[44px] items-center gap-2.5 text-[1rem] font-semibold uppercase tracking-[0.05em] text-[var(--color-ink)] no-underline"
+    >
+      <BrandMark size={20} />
+      <span>{brandName}</span>
+    </a>
+
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        data-bag-open
+        aria-controls="inquiry-bag-drawer"
+        aria-expanded="false"
+        class="inline-flex min-h-[44px] items-center rounded-[2px] border border-[var(--color-border)] px-2.5 font-mono text-[0.75rem] text-[var(--color-ink)]"
+      >
+        Bag (<span data-bag-count>0</span>)
+      </button>
+
+      <button
+        type="button"
+        data-theme-toggle
+        aria-pressed="false"
+        aria-label="Toggle light or dark kiln theme"
+        class="inline-flex min-h-[44px] items-center rounded-[2px] border border-[var(--color-border)] px-2.5 font-mono text-[0.75rem] text-[var(--color-ink)]"
+      >
+        <span data-theme-label>Light</span>
+      </button>
+
+      <button
+        type="button"
+        id="mobile-menu-toggle"
+        aria-expanded="false"
+        aria-controls="mobile-nav-drawer"
+        aria-label="Open navigation menu"
+        class="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-[2px] border border-[var(--color-border)] px-3 text-[0.875rem] font-medium text-[var(--color-ink)]"
+      >
+        <span data-menu-label>Menu</span>
+      </button>
+    </div>
+  </div>
+
+  <div
+    id="mobile-nav-drawer"
+    hidden
+    class="border-t border-[var(--color-border)] bg-[var(--color-canvas)]"
+  >
+    <nav aria-label="Mobile navigation" class="studio-wrap flex flex-col py-4">
+      {navLinks.map((item) => {
+        const active = item.match(currentPath);
+        return (
+          <a
+            href={item.href}
+            aria-current={active ? 'page' : undefined}
+            class={`flex min-h-[48px] items-center justify-between border-b border-[var(--color-border)] py-3 text-[1.0625rem] font-medium last:border-b-0 ${
+              active ? 'text-[var(--color-accent)]' : 'text-[var(--color-ink)]'
+            }`}
+          >
+            <span>{item.label}</span>
+            {active && <span class="font-mono text-xs text-[var(--color-accent)]">Active</span>}
+          </a>
+        );
+      })}
+      <div class="mt-4 flex flex-col gap-1 pt-2 font-mono text-[0.75rem] text-[var(--color-muted)]">
+        <span>{kilnBatch}</span>
+        <a href={`mailto:${email}`} class="text-[var(--color-ink)] underline underline-offset-4">
+          {email}
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Slide-over Inquiry Bag Drawer -->
+<div
+  id="inquiry-bag-drawer"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="bag-drawer-title"
+  hidden
+  class="fixed inset-0 z-50 flex justify-end bg-black/45"
+>
+  <div class="flex h-full w-full max-w-[420px] flex-col justify-between border-l border-[var(--color-border)] bg-[var(--color-canvas)] p-6 md:p-8">
+    <div class="flex items-center justify-between border-b border-[var(--color-border)] pb-4">
+      <div>
+        <p class="font-mono text-[0.75rem] uppercase tracking-[0.05em] text-[var(--color-muted)]">
+          Kiln Opening No. 14
+        </p>
+        <h2 id="bag-drawer-title" class="mt-1 text-[1.25rem] font-medium text-[var(--color-ink)]">
+          Selected Objects
+        </h2>
+      </div>
+      <button
+        type="button"
+        id="bag-close-btn"
+        aria-label="Close inquiry bag"
+        class="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-[2px] border border-[var(--color-border)] font-mono text-[0.875rem] text-[var(--color-ink)] hover:border-[var(--color-ink)]"
+      >
+        Close
+      </button>
+    </div>
+
+    <div id="bag-items-container" class="my-6 flex-1 overflow-y-auto">
+      <p id="bag-empty-msg" class="text-[0.9375rem] leading-relaxed text-[var(--color-muted)]">
+        No ceramic pieces selected yet. Browse the catalog to add vessels, tableware, or lighting to your order inquiry.
+      </p>
+      <ul id="bag-items-list" class="flex flex-col divide-y divide-[var(--color-border)]"></ul>
+    </div>
+
+    <div class="border-t border-[var(--color-border)] pt-5">
+      <div class="mb-4 flex items-center justify-between">
+        <span class="font-mono text-[0.8125rem] text-[var(--color-muted)]">Estimated Subtotal</span>
+        <span id="bag-subtotal" class="font-mono text-[1.125rem] font-medium text-[var(--color-ink)]">€0</span>
+      </div>
+      <a
+        href="/commissions#enquiry"
+        id="bag-checkout-link"
+        class="inline-flex min-h-[48px] w-full items-center justify-center rounded-[2px] bg-[var(--color-accent)] px-5 text-[0.9375rem] font-medium text-[var(--color-accent-on)] hover:bg-[var(--color-accent-hover)]"
+      >
+        Proceed to order &amp; commission inquiry
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  interface BagItem {
+    slug: string;
+    title: string;
+    glaze: string;
+    priceEur: number;
+    qty: number;
+  }
+
+  function readBag(): BagItem[] {
+    try {
+      const raw = localStorage.getItem('sk-bag');
+      const parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function writeBag(items: BagItem[]) {
+    try {
+      localStorage.setItem('sk-bag', JSON.stringify(items));
+    } catch {}
+    window.dispatchEvent(new CustomEvent('sk-bag-updated'));
+  }
+
+  function renderBagUI() {
+    const items = readBag();
+    const totalQty = items.reduce((sum, i) => sum + i.qty, 0);
+    const subtotal = items.reduce((sum, i) => sum + i.priceEur * i.qty, 0);
+
+    document.querySelectorAll('[data-bag-count]').forEach((el) => {
+      el.textContent = String(totalQty);
+    });
+
+    const list = document.getElementById('bag-items-list');
+    const emptyMsg = document.getElementById('bag-empty-msg');
+    const subtotalEl = document.getElementById('bag-subtotal');
+    if (!list || !emptyMsg || !subtotalEl) return;
+
+    subtotalEl.textContent = `€${subtotal}`;
+    list.innerHTML = '';
+
+    if (items.length === 0) {
+      emptyMsg.hidden = false;
+      return;
+    }
+
+    emptyMsg.hidden = true;
+    items.forEach((item, idx) => {
+      const li = document.createElement('li');
+      li.className = 'flex items-start justify-between gap-4 py-4';
+
+      const info = document.createElement('div');
+      const title = document.createElement('p');
+      title.className = 'text-[0.9375rem] font-medium text-[var(--color-ink)]';
+      title.textContent = item.title;
+
+      const meta = document.createElement('p');
+      meta.className = 'mt-0.5 font-mono text-[0.75rem] text-[var(--color-muted)]';
+      meta.textContent = `${item.glaze} · Qty ${item.qty} · €${item.priceEur * item.qty}`;
+
+      info.appendChild(title);
+      info.appendChild(meta);
+
+      const removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.className = 'min-h-[44px] px-2 font-mono text-[0.75rem] text-[var(--color-muted)] underline hover:text-[var(--color-ink)]';
+      removeBtn.textContent = 'Remove';
+      removeBtn.addEventListener('click', () => {
+        const next = readBag().filter((_, i) => i !== idx);
+        writeBag(next);
+      });
+
+      li.appendChild(info);
+      li.appendChild(removeBtn);
+      list.appendChild(li);
+    });
+  }
+
+  function setupHeaderAndBag() {
+    // 1. Mobile menu drawer
+    const toggle = document.getElementById('mobile-menu-toggle') as HTMLButtonElement | null;
+    const drawer = document.getElementById('mobile-nav-drawer') as HTMLElement | null;
+    if (toggle && drawer && toggle.dataset.bound !== 'true') {
+      toggle.dataset.bound = 'true';
+      const label = toggle.querySelector('[data-menu-label]');
+
+      const setOpen = (open: boolean) => {
+        toggle.setAttribute('aria-expanded', String(open));
+        toggle.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+        if (label) label.textContent = open ? 'Close' : 'Menu';
+        drawer.hidden = !open;
+      };
+
+      toggle.addEventListener('click', () => {
+        const isOpen = toggle.getAttribute('aria-expanded') === 'true';
+        setOpen(!isOpen);
+      });
+
+      drawer.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => setOpen(false));
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+          setOpen(false);
+          toggle.focus();
+        }
+      });
+    }
+
+    // 2. Light / Dark Kiln Theme Toggle
+    const themeButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-theme-toggle]'));
+    const syncThemeUI = () => {
+      const isDark = document.documentElement.dataset.theme === 'dark';
+      for (const btn of themeButtons) {
+        btn.setAttribute('aria-pressed', String(isDark));
+        const lbl = btn.querySelector('[data-theme-label]');
+        if (lbl) lbl.textContent = isDark ? 'Dark' : 'Light';
+      }
+    };
+    syncThemeUI();
+
+    for (const btn of themeButtons) {
+      if (btn.dataset.bound === 'true') continue;
+      btn.dataset.bound = 'true';
+      btn.addEventListener('click', () => {
+        const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = next;
+        try {
+          localStorage.setItem('sk-theme', next);
+        } catch {}
+        syncThemeUI();
+      });
+    }
+
+    // 3. Inquiry Bag Drawer
+    const bagDrawer = document.getElementById('inquiry-bag-drawer');
+    const bagClose = document.getElementById('bag-close-btn');
+    const bagOpenBtns = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-bag-open]'));
+    const bagCheckout = document.getElementById('bag-checkout-link');
+
+    const setBagOpen = (open: boolean) => {
+      if (!bagDrawer) return;
+      bagDrawer.hidden = !open;
+      bagOpenBtns.forEach((b) => b.setAttribute('aria-expanded', String(open)));
+      if (open) {
+        renderBagUI();
+        bagClose?.focus();
+      }
+    };
+
+    for (const btn of bagOpenBtns) {
+      if (btn.dataset.bound === 'true') continue;
+      btn.dataset.bound = 'true';
+      btn.addEventListener('click', () => setBagOpen(true));
+    }
+
+    if (bagClose && bagClose.dataset.bound !== 'true') {
+      bagClose.dataset.bound = 'true';
+      bagClose.addEventListener('click', () => setBagOpen(false));
+    }
+
+    if (bagDrawer && bagDrawer.dataset.bound !== 'true') {
+      bagDrawer.dataset.bound = 'true';
+      bagDrawer.addEventListener('click', (e) => {
+        if (e.target === bagDrawer) setBagOpen(false);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !bagDrawer.hidden) setBagOpen(false);
+      });
+    }
+
+    bagCheckout?.addEventListener('click', () => setBagOpen(false));
+
+    if (!(window as unknown as { __skBagBound?: boolean }).__skBagBound) {
+      (window as unknown as { __skBagBound?: boolean }).__skBagBound = true;
+      window.addEventListener('sk-bag-updated', renderBagUI);
+      window.addEventListener('sk-bag-open', () => setBagOpen(true));
+    }
+    renderBagUI();
+
+    // 4. Live CET studio clock
+    const clockEl = document.querySelector('[data-studio-clock]');
+    if (clockEl) {
+      try {
+        const now = new Intl.DateTimeFormat('en-GB', {
+          timeZone: 'Europe/Berlin',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false,
+        }).format(new Date());
+        clockEl.textContent = now;
+      } catch {}
+    }
+  }
+
+  document.addEventListener('astro:page-load', setupHeaderAndBag);
+</script>

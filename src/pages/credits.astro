@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { PHOTO_CREDITS } from '../lib/credits';
+---
+
+<BaseLayout
+  title="Photo Credits · Silt & Kiln"
+  description="Photography attributions and open licenses used across the Silt & Kiln stoneware catalog."
+>
+  <section class="pt-10 pb-20 md:pt-14 md:pb-28">
+    <div class="studio-wrap">
+      <p class="font-mono text-[0.75rem] uppercase tracking-[0.06em] text-[var(--color-muted)]">
+        Attributions ({PHOTO_CREDITS.length} Photographs)
+      </p>
+      <h1 class="mt-4 text-[clamp(2rem,4vw,3rem)] font-normal leading-[1.1] tracking-[-0.03em] text-[var(--color-ink)]">
+        Photography &amp; Open Licenses
+      </h1>
+      <p class="mt-4 max-w-[58ch] text-[1rem] leading-[1.65] text-[var(--color-muted)]">
+        All 21 pottery and studio photographs are sourced from Unsplash (free Unsplash License) and Wikimedia Commons (CC BY-SA 4.0) and optimized locally to WebP.
+      </p>
+
+      <div class="mt-10 overflow-x-auto border-t border-[var(--color-border)]">
+        <table class="w-full border-collapse text-left text-[0.9375rem]">
+          <thead>
+            <tr class="border-b border-[var(--color-border)] font-mono text-[0.75rem] uppercase tracking-[0.05em] text-[var(--color-muted)]">
+              <th class="py-4 pr-6 font-medium">Collection</th>
+              <th class="py-4 pr-6 font-medium">Subject</th>
+              <th class="py-4 pr-6 font-medium">Photographer</th>
+              <th class="py-4 pr-6 font-medium">License</th>
+              <th class="py-4 font-medium">Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            {PHOTO_CREDITS.map((item) => (
+              <tr class="border-b border-[var(--color-border)]">
+                <td class="py-4 pr-6 font-medium text-[var(--color-ink)]">{item.collection}</td>
+                <td class="py-4 pr-6 text-[var(--color-muted)]">{item.subject}</td>
+                <td class="py-4 pr-6 text-[var(--color-ink)]">{item.author}</td>
+                <td class="py-4 pr-6 font-mono text-[0.8125rem] text-[var(--color-muted)]">{item.license}</td>
+                <td class="py-4">
+                  <a
+                    href={item.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex min-h-[44px] items-center text-[var(--color-accent)] underline underline-offset-4 hover:text-[var(--color-accent-hover)]"
+                  >
+                    View source
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
