@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://brand-studio-portfolio.example/sitemap-index.xml
