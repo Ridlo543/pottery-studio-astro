@@ -1,8 +1,8 @@
 ---
 title: Linen Rim Dinner Plates
 category: Tableware
-priceEur: 190
-priceLabel: €190 / set of 4
+priceIdr: 1800000
+priceLabel: Rp 1.800.000 / set of 4
 dimensions: 27 × 2.5 cm
 clayBody: Raw Rim Stoneware
 firingTemp: 1,260°C Reduction

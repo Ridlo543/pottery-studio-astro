@@ -1,8 +1,8 @@
 ---
 title: Cylindrical Pouring Jars
 category: Vessels
-priceEur: 165
-priceLabel: €165 / trio
+priceIdr: 1450000
+priceLabel: Rp 1.450.000 / trio
 dimensions: 18 × 8 cm (650 ml)
 clayBody: Ash-Glazed Porcelain Stoneware
 firingTemp: 1,280°C Reduction

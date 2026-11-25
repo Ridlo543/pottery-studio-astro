@@ -1,8 +1,8 @@
 ---
 title: Speckled Espresso Cups
 category: Tableware
-priceEur: 110
-priceLabel: €110 / set of 2
+priceIdr: 950000
+priceLabel: Rp 950.000 / set of 2
 dimensions: 8.5 × 7.5 cm (180 ml)
 clayBody: Iron-Flecked Stoneware
 firingTemp: 1,240°C Reduction

@@ -77,5 +77,5 @@ Extracted from the refactored Penpot file (`01 · Foundations & Components`, `02
 
 - **Display & UI:** `Host Grotesk` (400, 500, 600)
 - **Editorial Serif:** `Newsreader` (400, 400 italic)
-- **Technical Specs:** `IBM Plex Mono` (400, 500) for dimensions, firing temperatures (`1,260°C`), batch numbers, and EUR pricing.
+- **Technical Specs:** `IBM Plex Mono` (400, 500) for dimensions, firing temperatures (`1,260°C`), batch numbers, and IDR (`Rp`) pricing.
 - **Directional Arrows (`R-08`):** `←` and `→` are reserved strictly for sequential object navigation (`← All objects`, `Open object →`) to indicate spatial back/forward movement.

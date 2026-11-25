@@ -1,13 +1,13 @@
 ---
 title: Kiln Shade Table Lamp
 category: Lighting
-priceEur: 380
-priceLabel: €380
+priceIdr: 3600000
+priceLabel: Rp 3.600.000
 dimensions: 34 × 22 cm
 clayBody: Slip-Cast Cream Stoneware
 firingTemp: 1,240°C Oxidation
 availability: Numbered Edition · 8 left
-careNotes: Includes braided linen cord (2.2 m), brass E27 socket, and warm 2700K LED bulb (EU/UK plug options).
+careNotes: Includes braided linen cord (2.2 m), brass E27 socket, and warm 2700K LED bulb (Type C/F Indonesia & international plug options).
 summary: Two-part ceramic table lamp pairing a turned stoneware base with a thin-walled conical ceramic shade for warm downward task light.
 coverImage: /uploads/objects/kiln-table-lamp/cover.webp
 coverAlt: Cream ceramic table lamp casting sharp architectural shadows across a white wall

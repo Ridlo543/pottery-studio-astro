@@ -1,8 +1,8 @@
 ---
 title: Twin Amphora Vessels
 category: Vessels
-priceEur: 240
-priceLabel: €240
+priceIdr: 2400000
+priceLabel: Rp 2.400.000
 dimensions: 24 × 14 cm & 18 × 16 cm
 clayBody: Speckled Buff Stoneware
 firingTemp: 1,260°C Reduction
@@ -37,7 +37,7 @@ gridSpan: wide
 
 ## Form & Proportion
 
-Thrown in two complementary silhouettes from a single batch of Westerwald buff stoneware, the Twin Amphora Vessels balance wide, grounded bellies with narrow collared openings designed for single architectural branches or dry botanicals.
+Thrown in two complementary silhouettes from a single batch of Java buff stoneware, the Twin Amphora Vessels balance wide, grounded bellies with narrow collared openings designed for single architectural branches or dry botanicals.
 
 ## Surface & Firing
 

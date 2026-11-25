@@ -23,14 +23,14 @@ content:
         options:
           values: [Vessels, Tableware, Lighting]
         default: Vessels
-      - name: priceEur
-        label: Price (EUR)
+      - name: priceIdr
+        label: Price (IDR)
         type: number
-        default: 180
+        default: 1800000
       - name: priceLabel
         label: Display Price Label
         type: string
-        default: "€180"
+        default: "Rp 1.800.000"
       - name: dimensions
         label: Dimensions
         type: string

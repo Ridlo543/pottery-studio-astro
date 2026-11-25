@@ -7,8 +7,8 @@ const objects = defineCollection({
   schema: z.object({
     title: z.string(),
     category: z.enum(['Vessels', 'Tableware', 'Lighting']).default('Vessels'),
-    priceEur: z.number().int().default(180),
-    priceLabel: z.string().default('€180'),
+    priceIdr: z.number().int().default(1800000),
+    priceLabel: z.string().default('Rp 1.800.000'),
     dimensions: z.string().default('20 × 14 cm'),
     clayBody: z.string().default('Speckled Buff Stoneware'),
     firingTemp: z.string().default('1,260°C Reduction'),

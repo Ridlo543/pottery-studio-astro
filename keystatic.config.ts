@@ -26,13 +26,13 @@ export default config({
           ],
           defaultValue: 'Vessels',
         }),
-        priceEur: fields.integer({
-          label: 'Price (EUR)',
-          defaultValue: 180,
+        priceIdr: fields.integer({
+          label: 'Price (IDR)',
+          defaultValue: 1800000,
         }),
         priceLabel: fields.text({
           label: 'Display Price Label',
-          defaultValue: '€180',
+          defaultValue: 'Rp 1.800.000',
         }),
         dimensions: fields.text({
           label: 'Dimensions',

@@ -30,8 +30,8 @@ const productSchema = {
   material: data.clayBody,
   offers: {
     '@type': 'Offer',
-    priceCurrency: 'EUR',
-    price: String(data.priceEur),
+    priceCurrency: 'IDR',
+    price: String(data.priceIdr),
     availability: 'https://schema.org/InStock',
   },
   ...(siteOrigin && data.coverImage ? { image: `${siteOrigin}${data.coverImage}` } : {}),
@@ -136,7 +136,7 @@ const productSchema = {
               id="add-to-bag-btn"
               data-slug={entry.id}
               data-title={data.title}
-              data-price={data.priceEur}
+              data-price={data.priceIdr}
               data-default-glaze={data.glazes[0]?.name || 'Standard Glaze'}
               class="inline-flex min-h-[48px] w-full items-center justify-center rounded-[2px] bg-[var(--color-accent)] px-6 text-[0.9375rem] font-medium text-[var(--color-accent-on)] hover:bg-[var(--color-accent-hover)]"
             >
@@ -277,9 +277,9 @@ const productSchema = {
       addBtn.addEventListener('click', () => {
         const slug = addBtn.dataset.slug || '';
         const title = addBtn.dataset.title || '';
-        const priceEur = Number(addBtn.dataset.price || '0');
+        const priceIdr = Number(addBtn.dataset.price || '0');
 
-        let bag: Array<{ slug: string; title: string; glaze: string; priceEur: number; qty: number }> = [];
+        let bag: Array<{ slug: string; title: string; glaze: string; priceIdr: number; qty: number }> = [];
         try {
           const raw = localStorage.getItem('sk-bag');
           bag = raw ? JSON.parse(raw) : [];
@@ -292,7 +292,7 @@ const productSchema = {
         if (existing) {
           existing.qty += 1;
         } else {
-          bag.push({ slug, title, glaze: activeGlaze, priceEur, qty: 1 });
+          bag.push({ slug, title, glaze: activeGlaze, priceIdr, qty: 1 });
         }
 
         try {

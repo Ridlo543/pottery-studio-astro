@@ -222,7 +222,7 @@ const navLinks = [
     <div class="border-t border-[var(--color-border)] pt-5">
       <div class="mb-4 flex items-center justify-between">
         <span class="font-mono text-[0.8125rem] text-[var(--color-muted)]">Estimated Subtotal</span>
-        <span id="bag-subtotal" class="font-mono text-[1.125rem] font-medium text-[var(--color-ink)]">€0</span>
+        <span id="bag-subtotal" class="font-mono text-[1.125rem] font-medium text-[var(--color-ink)]">Rp 0</span>
       </div>
       <a
         href="/commissions#enquiry"
@@ -240,7 +240,7 @@ const navLinks = [
     slug: string;
     title: string;
     glaze: string;
-    priceEur: number;
+    priceIdr: number;
     qty: number;
   }
 
@@ -264,7 +264,7 @@ const navLinks = [
   function renderBagUI() {
     const items = readBag();
     const totalQty = items.reduce((sum, i) => sum + i.qty, 0);
-    const subtotal = items.reduce((sum, i) => sum + i.priceEur * i.qty, 0);
+    const subtotal = items.reduce((sum, i) => sum + (i.priceIdr || 0) * i.qty, 0);
 
     document.querySelectorAll('[data-bag-count]').forEach((el) => {
       el.textContent = String(totalQty);
@@ -275,7 +275,7 @@ const navLinks = [
     const subtotalEl = document.getElementById('bag-subtotal');
     if (!list || !emptyMsg || !subtotalEl) return;
 
-    subtotalEl.textContent = `€${subtotal}`;
+    subtotalEl.textContent = `Rp ${subtotal.toLocaleString('id-ID')}`;
     list.innerHTML = '';
 
     if (items.length === 0) {
@@ -295,7 +295,7 @@ const navLinks = [
 
       const meta = document.createElement('p');
       meta.className = 'mt-0.5 font-mono text-[0.75rem] text-[var(--color-muted)]';
-      meta.textContent = `${item.glaze} · Qty ${item.qty} · €${item.priceEur * item.qty}`;
+      meta.textContent = `${item.glaze} · Qty ${item.qty} · Rp ${((item.priceIdr || 0) * item.qty).toLocaleString('id-ID')}`;
 
       info.appendChild(title);
       info.appendChild(meta);
@@ -418,12 +418,12 @@ const navLinks = [
     }
     renderBagUI();
 
-    // 4. Live CET studio clock
+    // 4. Live WIB studio clock
     const clockEl = document.querySelector('[data-studio-clock]');
     if (clockEl) {
       try {
         const now = new Intl.DateTimeFormat('en-GB', {
-          timeZone: 'Europe/Berlin',
+          timeZone: 'Asia/Jakarta',
           hour: '2-digit',
           minute: '2-digit',
           hour12: false,

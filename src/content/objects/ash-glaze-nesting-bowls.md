@@ -1,20 +1,20 @@
 ---
 title: Ash-Glaze Nesting Bowls
 category: Tableware
-priceEur: 145
-priceLabel: €145 / set of 3
+priceIdr: 1350000
+priceLabel: Rp 1.350.000 / set of 3
 dimensions: 19 × 8 cm / 15 × 6.5 cm / 11 × 5 cm
 clayBody: Wood-Ash Glazed Stoneware
 firingTemp: 1,260°C Reduction
 availability: In Stock · Ships in 3 days
 careNotes: Food-safe vitrified interior; microwave and dishwasher safe.
-summary: Three graduated serving and grain bowls glazed in washed beechwood ash that pools pale celadon green in the well.
+summary: Three graduated serving and grain bowls glazed in washed teakwood ash that pools pale celadon green in the well.
 coverImage: /uploads/objects/ash-glaze-nesting-bowls/cover.webp
 coverAlt: Three speckled wood-ash glazed ceramic bowls arranged on pale marble
 hoverImage: /uploads/objects/ash-glaze-nesting-bowls/shaping.webp
 hoverAlt: Potter hands coated in wet grey clay shaping the rim of a stoneware bowl
 glazes:
-  - name: Beechwood Ash
+  - name: Teakwood Ash
     hex: "#C9CFC4"
     finish: Pooled celadon ash glaze
   - name: Toasted Rim
@@ -34,7 +34,7 @@ gridSpan: wide
 
 ## Washed Wood Ash
 
-Collected from local beechwood stoves, washed three times, and sieved through 80-mesh bronze screen, the ash glaze melts into a translucent pale celadon pool at the center of each bowl while breaking warm ochre along the rim.
+Collected from local teakwood kilns, washed three times, and sieved through 80-mesh bronze screen, the ash glaze melts into a translucent pale celadon pool at the center of each bowl while breaking warm ochre along the rim.
 
 ## Nested Proportions
 
